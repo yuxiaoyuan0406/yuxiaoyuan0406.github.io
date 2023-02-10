@@ -1,15 +1,17 @@
 ---
 layout: article
-title: 【some topic】main title
+title: 【一点点Linux】在Linux上设置Proxy代理
 permalink: /article/:title.html
-key: template-key
+key: proxy-on-linux
 tags: 
-  - blog
-  - Liquid
-  - jekyll
+  - Linux
+  - git
+  - proxy
+  - bash
+  - zsh
 author: Yu Xiaoyuan
 show_author_profile: true
-license: WTFPL
+license: CC-BY-NC-ND-4.0
 ---
 
 <!-- abstract begin -->

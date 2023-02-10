@@ -42,6 +42,60 @@ license: CC-BY-NC-ND-4.0
 
 这些配置非常重要，在应用配置环节需要对应参数进行设置。
 
+## 命令行配置
+
+### 临时配置
+
+命令行进行临时配置非常简单，下面的指令即可指定http代理服务。
+
+```bash
+export http_proxy=http://192.168.1.2:7890
+export https_proxy=http://192.168.1.2:7890
+```
+
+可以用`google.com`进行测试，如果代理配置成功则会输出下列内容。
+
+```bash
+$ curl google.com
+<HTML><HEAD><meta http-equiv="content-type" content="text/html;charset=utf-8">
+<TITLE>301 Moved</TITLE></HEAD><BODY>
+<H1>301 Moved</H1>
+The document has moved
+<A HREF="http://www.google.com/">here</A>.
+</BODY></HTML>
+```
+
+### 永久配置
+
+想要每次打开命令行都自动配置好代理则需要对命令行启动时运行的脚本进行修改。  
+在之前的一篇文章中我们知道了bash启动时[调用脚本的顺序]({% post_url 2023-02-07-linux-sudoer-hints %}#shell的启动调用顺序) ，bash在调用`$HOME/.profile`时会调用`$HOME/.bashrc`。  
+笔者使用的是zsh，最后调用的则是`$HOME/.zshrc`。
+
+<!-- 考虑到不是所有用户都有管理员权限，这里就以修改用户层面设置为例。   -->
+为了方便管理和后期修改代理服务器地址，在`$HOME`目录下创建`.proxy`文件，并插入如下内容。
+
+```bash
+# filename: ~/.proxy
+proxy_server="raspberrypi.local"  # 代理服务器域名或者地址
+proxy_port="7890"                 # 代理服务器监听端口
+export {http,https,all}_proxy="http://${proxy_server}:${proxy_port}"
+export no_proxy="localhost,127.0.0.1/8,192.168.0.0/23,*.local"
+```
+
+最后一行的`no_proxy`需要根据自身网络环境进行配置，比如笔者的子网网段是`192.168.0.0/23`，则子网内的各设备不需要代理访问。
+
+之后在`$HOME/.zshrc`中添加下列内容来在启动命令行时调用上的脚本，如果你使用的命令行是bash则需要修改`$HOME/.bashrc`。
+
+```bash
+if [ -f "$HOME/.proxy" ]; then
+    source "$HOME/.proxy"
+fi
+```
+
+这段脚本的含义是判断是否存在文件`$HOME/.zshrc`，如果存在则执行其中的内容。
+
+配置完成之后可用重启命令行或者使用`source ~/.zshrc`指令让刚刚的配置生效，然后用`curl`指令测试。
+
 ## section 1
 
 {{ image_dir }}

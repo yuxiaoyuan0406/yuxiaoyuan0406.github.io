@@ -119,6 +119,27 @@ fi
 但是用http访问GitHub牵扯到GitHub API的权限验证问题，不如ssh来的方便。
 而这里配置的代理并不能约束ssh的行为。所以还要单独配置ssh的连接。
 
+## ssh配置proxy
+
+ssh配置在`$HOME/.ssh/config`中管理。
+具体配置细节参看手册`man ssh_config`。  
+这里配置GitHub的访问直接在文件中添加下面的内容即可。
+
+```config
+Host github.com
+    Hostname github.com
+    ProxyCommand    nc -X connect -x 192.168.1.2:7890 %h %p
+```
+
+其中的`nc`是Linux的一个工具，如果系统中没有则需要另外安装。
+
+这样就能顺利通过ssh走proxy控制GitHub的repo。
+
+## 总结
+
+命令行中走代理的操作大致上分为这三种，git、ssh和其他指令。分别从各自的配置文件中进行配置即可。  
+以文件的形式管理也方便进行修改。
+
 ## section 1
 
 {{ image_dir }}

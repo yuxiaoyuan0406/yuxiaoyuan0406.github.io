@@ -96,6 +96,29 @@ fi
 
 配置完成之后可用重启命令行或者使用`source ~/.zshrc`指令让刚刚的配置生效，然后用`curl`指令测试。
 
+## git配置proxy
+
+如果你在使用git时设置的远程代码库用的是https地址，则下面的配置方式能让你的git通过代理访问远程仓库。  
+如果想全局git配置，则可以编辑`$HOME/.gitconfig`添加如下内容
+
+```config
+[http]
+    proxy = http://192.168.1.2:7890
+[https]
+    proxy = http://192.168.1.2:7890
+```
+
+如果特别指定GitHub代理，则使用下面的配置。
+
+```config
+[http "https://github.com/"]
+    proxy = http://192.168.1.2:7890
+    sslVerfy = false
+```
+
+但是用http访问GitHub牵扯到GitHub API的权限验证问题，不如ssh来的方便。
+而这里配置的代理并不能约束ssh的行为。所以还要单独配置ssh的连接。
+
 ## section 1
 
 {{ image_dir }}

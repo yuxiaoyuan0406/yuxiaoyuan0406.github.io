@@ -15,7 +15,8 @@ license: CC-BY-NC-ND-4.0
 ---
 
 <!-- abstract begin -->
-This is a template for future posts
+在Linux上访问某些内容或者pull/push到GitHub时总会遇到代理设置的问题，系统的代理配置有时候不能反应到命令行中。
+本文主要介绍了如何给命令行的指令、git和ssh配置代理，并且通过文件进行管理。
 <!-- abstract end -->
 
 <!--more-->

@@ -30,6 +30,18 @@ license: CC-BY-NC-ND-4.0
 <!-- {%- increment equation-h2-1 -%} -->
 <!-- end private variable of Liquid -->
 
+## 网络环境
+
+在之前的一篇文章中笔者在树莓派上配置了[局域网代理服务器]( {% post_url 2022-08-18-local-proxy-server %} )。  
+另一篇文章中配置了树莓派的防火墙以[允许代理服务器端口通过]({% post_url 2022-12-08-firewall-on-pi %}) 。  
+树莓派上的一些基础配置和网络环境配置如下表所示。
+
+| 树莓派域名 | IPv4 | 子网掩码 | Proxy代理协议 | 监听端口 |
+|:---:|:---:|:---:|:---:|:---:|
+| `raspberrypi.local` | `192.168.1.2` | `255.255.254.0` | http | `7890` |
+
+这些配置非常重要，在应用配置环节需要对应参数进行设置。
+
 ## section 1
 
 {{ image_dir }}

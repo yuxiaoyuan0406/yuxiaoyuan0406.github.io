@@ -116,7 +116,7 @@ WantedBy=multi-user.target
 
 启动脚本。
 
-```bash
+{% highlight bash linenos %}
 #!/bin/bash
 # save this file to ${HOME}/.config/clash/start-clash.sh
 
@@ -137,7 +137,19 @@ sed -i "${log_level}a log-level: debug" ${config}
 sed -i "${log_level}d" ${config}
 
 /usr/local/bin/clash -d /etc/clash/
-```
+{% endhighlight %}
+
+上面的启动脚本的主要功能是记录当前进程PID用于后面的结束脚本杀死进程。  
+辅助功能包括下面几个方面：
+
+* 通过链接更新clash配置
+* 修改clash配置文件的某些字段
+
+其中第7行是对比本地配置和链接指向的配置，若不一致则在后面三行进行更新。  
+这里进行判断其实是冗余的，因为如果每次更新配置文件后都进行修改，那不管链接指向的是否更新了，本地与云端对比总是不一样的。
+
+后面12到14行和16到18行都是通过`sed`指令匹配某个字符串找到目标行所在位置，然后在目标行后插入修改后的内容，最后删除之前找到的目标行。  
+这里修改了`allow-lan`字段允许LAN口其他设备访问，修改了`log-level`字段使其输入debug级别的日志。
 
 结束脚本。
 

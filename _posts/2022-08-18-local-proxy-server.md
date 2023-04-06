@@ -97,10 +97,10 @@ Description=Clash daemon, A rule-based proxy in Go.
 After=network.target
 
 [Service]
-Type=simple
 User=root
-# Restart=always
-# ExecStart=/usr/local/bin/clash -d /etc/clash
+Type=simple
+Restart=always
+RuntimeMaxSec=259200
 ExecStart=/etc/clash/start-clash.sh
 ExecStop=/etc/clash/stop-clash.sh
 Environment="CLASH_URL=https://your.clash-config.url"

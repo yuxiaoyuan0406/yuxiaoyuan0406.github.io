@@ -51,13 +51,15 @@ $ file clash-linux-armv7-v1.11.4
 clash-linux-armv7-v1.11.4: ELF 32-bit LSB executable, ARM, EABI5 version 1 (SYSV), statically linked, stripped
 ```
 
+可以看到这是一个32位ARM架构可执行文件。
+
 为了能在系统指令内直接调用`clash`，将上面的可执行文件拷贝(或移动)到系统的`PATH`中，并赋予执行权限。
 
 ```bash
+# 执行权限
+chmod a+x clash-linux-armv7-v1.11.4
 # 拷贝
 sudo cp clash-linux-armv7-v1.11.4 /usr/local/bin/clash
-# 执行权限
-sudo chmod a+x /usr/local/bin/clash
 ```
 
 然后尝试调用一下。

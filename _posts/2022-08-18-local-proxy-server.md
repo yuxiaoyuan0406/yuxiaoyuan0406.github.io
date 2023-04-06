@@ -213,3 +213,5 @@ static domain_name_servers=192.168.1.1
 clash：[clash](https://github.com/Dreamacro/clash)
 
 静态IP：[树莓派设置静态IP地址](https://zhuanlan.zhihu.com/p/435714438)
+
+树莓派防火墙：[【树莓派学习笔记】给树莓派安装防火墙]( {% post_url 2022-12-08-firewall-on-pi %})

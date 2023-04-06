@@ -166,7 +166,7 @@ rm /etc/clash/clash.pid
 使用上述的设置，服务启动时会调用`start-clash.sh`脚本，将进程的PID保存到文本文件中，并根据服务配置中的url进行`config.yaml`的更新；
 结束时调用`stop-clash.sh`，使用刚才的PID杀死进程。
 
-赋予执行权限。
+之后给各脚本赋予执行权限。
 
 ```bash
 sudo chmod a+x /etc/clash/st*.sh

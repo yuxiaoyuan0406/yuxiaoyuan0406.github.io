@@ -109,6 +109,11 @@ Environment="CLASH_URL=https://your.clash-config.url"
 WantedBy=multi-user.target
 ```
 
+上面的配置定义了一个`root`用户的简单类型守护，并且通过设置最长运行时间来自动重启。
+
+注意：请在[`Enviroment`]({% post_url 2022-08-18-local-proxy-server %}#:~:text=Environment%3D%22CLASH_URL%3Dhttps%3A//your.clash%2Dconfig.url%22)行插入你的代理服务商提供的clash配置更新链接。
+{:.warning}
+
 启动脚本。
 
 ```bash

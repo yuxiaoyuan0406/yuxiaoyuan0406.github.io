@@ -118,20 +118,24 @@ WantedBy=multi-user.target
 
 ```bash
 #!/bin/bash
-# file: /etc/clash/start-clash.sh
+# save this file to ${HOME}/.config/clash/start-clash.sh
 
 # save pid file
 echo $$ > /etc/clash/clash.pid
-
-diff /etc/clash/config.yaml <(curl -s ${CLASH_URL})
-if [ "$?" == 0 ]
-then
-    echo "nothing changed"
-else
-    echo "updating config.yaml"
-    # uncomment next line if you wish to update config.yaml on each start up
-    # curl -L -o /etc/clash/config.yaml ${CLASH_URL}
+config=/etc/clash/config.yaml
+diff $config <(curl -s ${CLASH_URL})
+if [ $? != 0 ]; then
+    curl -L -o $config ${CLASH_URL}
 fi
+
+allow_lan=`sed -n '/allow-lan/=' ${config}`
+sed -i "${allow_lan}a allow-lan: true" ${config}
+sed -i "${allow_lan}d" ${config}
+
+log_level=`sed -n '/log-level/=' ${config}`
+sed -i "${log_level}a log-level: debug" ${config}
+sed -i "${log_level}d" ${config}
+
 /usr/local/bin/clash -d /etc/clash/
 ```
 

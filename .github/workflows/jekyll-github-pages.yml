@@ -10,7 +10,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
-  actions: read   # deploy-pages@v4 需要读取 Actions 权限
+  actions: read
 
 concurrency:
   group: "pages"
@@ -20,13 +20,28 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: ruby/setup-ruby@v1
+      - name: Checkout (with submodules)
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Show submodule status (debug)
+        run: |
+          git submodule sync --recursive
+          git submodule status --recursive
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.3'
           bundler-cache: true
+
       - name: Build site
+        env:
+          JEKYLL_ENV: production
         run: bundle exec jekyll build -d _site --trace
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

@@ -324,6 +324,7 @@ tar -xvf mentor.tar.gz
 ```bash
 # mentor
 export MGC_HOME=/opt/mentor
+export MGC_TMPDIR=/tmp
 # calibre
 export CALIBRE_HOME=$MGC_HOME/calibre2022.2/aoj_cal_2022.2_38.20
 export MGLS_LICENSE_FILE=$MGC_HOME/license/license.dat
